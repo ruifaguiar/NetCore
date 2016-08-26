@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Threading.Tasks;
 using DelegateExample;
 using FactoryPattern;
+using ObserverPattern;
 using ProxyPattern;
 using SingletonPattern;
 using StrategyPattern;
@@ -16,9 +18,11 @@ namespace ConsoleApplication
             FactoryExample();
             SingletonExample();
             DelegateExample();
+            DelegateCallbackExample();
             StrategyPattern(DayOfWeek.Monday);
             StrategyPattern(DayOfWeek.Sunday);
             StrategyPattern(DayOfWeek.Thursday);
+            ObserverPattern();
         }
         private static void ProxyExample()
         {
@@ -57,7 +61,6 @@ namespace ConsoleApplication
         private static void DelegateCallbackExample()
         {
             LongRunning longr = new LongRunning();
-
             longr.LongRunningMethod(DelegateCallbackPrint);
         }
 
@@ -73,17 +76,17 @@ namespace ConsoleApplication
             {
                 case DayOfWeek.Monday:
                     {
-                        discountStrategy= new HighDiscountStrategy();
+                        discountStrategy = new HighDiscountStrategy();
                         break;
                     }
-                    case DayOfWeek.Thursday:
+                case DayOfWeek.Thursday:
                     {
-                        discountStrategy= new LowDiscountStrategy();
+                        discountStrategy = new LowDiscountStrategy();
                         break;
                     }
-                    default:
+                default:
                     {
-                        discountStrategy=new NoDiscountStrategy();
+                        discountStrategy = new NoDiscountStrategy();
                         break;
                     }
             }
@@ -96,6 +99,20 @@ namespace ConsoleApplication
             var discount = (double)mall.GetFinalBill() / mall.BillAmount;
 
             WriteLine($"The Customer {mall.CustomerName} is bought {mall.BillAmount}€ and got a discount of {100 - discount * 100}%");
+        }
+
+        private static void ObserverPattern()
+        {
+            var component = new Cpu(150);
+            var ramProduct = new Ram(75);
+            ICustomer cust1 = new Customer();
+            ICustomer cust2 = new Customer();
+            component.AddFollower(cust1);
+            ramProduct.AddFollower(cust2);
+
+            component.Price=100;
+            ramProduct.Price=25;
+
         }
     }
 }

@@ -8,11 +8,15 @@ namespace DelegateExample
 
         public void LongRunningMethod(Callback cal)
         {
-            for (int i = 0; i < 5; i++)
+            Task.Run(() =>
             {
-                Task.Delay(i * 1000);
-                cal(i);
-            }
+                for (int i = 0; i < 5; i++)
+                {
+                    Task.Delay(i * 1000);
+                    cal(i);
+                }
+            });
+
         }
 
     }
