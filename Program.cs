@@ -1,19 +1,24 @@
-﻿using DelegateExample;
+﻿using System;
+using DelegateExample;
 using FactoryPattern;
 using ProxyPattern;
 using SingletonPattern;
+using StrategyPattern;
 using static System.Console;
 namespace ConsoleApplication
 {
     public class Program
     {
-         public delegate int AddFunction(int val1, int val2);
+        public delegate int AddFunction(int val1, int val2);
         public static void Main(string[] args)
         {
             ProxyExample();
             FactoryExample();
-            SingletonExample(); 
+            SingletonExample();
             DelegateExample();
+            StrategyPattern(DayOfWeek.Monday);
+            StrategyPattern(DayOfWeek.Sunday);
+            StrategyPattern(DayOfWeek.Thursday);
         }
         private static void ProxyExample()
         {
@@ -27,7 +32,7 @@ namespace ConsoleApplication
             IAnimalFactory factory = AnimalFactory.CreateFactory();
             IAnimal carnivore = factory.CreateAnimal(AnimalType.Carnivore);
             IAnimal herbivore = factory.CreateAnimal(AnimalType.Herbivore);
-            
+
             WriteLine("I am a {0}, i sleep for {1} hours and like to eat {2}", carnivore.GetType().Name, carnivore.Sleep(), carnivore.Eat());
             WriteLine("I am a {0}, i sleep for {1} hours and like to eat {2}", herbivore.GetType().Name, herbivore.Sleep(), herbivore.Eat());
         }
@@ -59,6 +64,38 @@ namespace ConsoleApplication
         private static void DelegateCallbackPrint(int i)
         {
             WriteLine(i);
+        }
+
+        private static void StrategyPattern(DayOfWeek dayOfWeek)
+        {
+            IDiscountStrategy discountStrategy;
+            switch (dayOfWeek)
+            {
+                case DayOfWeek.Monday:
+                    {
+                        discountStrategy= new HighDiscountStrategy();
+                        break;
+                    }
+                    case DayOfWeek.Thursday:
+                    {
+                        discountStrategy= new LowDiscountStrategy();
+                        break;
+                    }
+                    default:
+                    {
+                        discountStrategy=new NoDiscountStrategy();
+                        break;
+                    }
+            }
+
+
+            var mall = new ShoppingMall(discountStrategy);
+            mall.CustomerName = "Raquel";
+            mall.BillAmount = 400;
+
+            var discount = (double)mall.GetFinalBill() / mall.BillAmount;
+
+            WriteLine($"The Customer {mall.CustomerName} is bought {mall.BillAmount}€ and got a discount of {100 - discount * 100}%");
         }
     }
 }
