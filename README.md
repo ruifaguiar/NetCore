@@ -1,1 +1,1 @@
-# NetCore
+# Experiences with .Net Core, implementing Design patterns and other neat C# features.

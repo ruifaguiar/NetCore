@@ -8,19 +8,12 @@ namespace ObserverPattern
         private delegate void PriceUpdate(IProduct product);
         private event PriceUpdate OnPriceUpdate;
         private decimal _price;
-        private readonly IList<ICustomer> _customers;
+
         public Ram(decimal price)
         {
-            _customers = new List<ICustomer>();
             _price = price;
         }
-        public string Name
-        {
-            get
-            {
-                return "Ram";
-            }
-        }
+        public string Name => "Ram";
 
         public decimal Price
         {
@@ -37,10 +30,7 @@ namespace ObserverPattern
         public void Notify(decimal price)
         {
            _price=price;
-           if(OnPriceUpdate!=null)
-           {
-               OnPriceUpdate(this);
-           }
+            OnPriceUpdate?.Invoke(this);
         }
 
         public void AddFollower(ICustomer costumer)
