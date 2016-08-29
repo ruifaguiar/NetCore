@@ -1,6 +1,7 @@
 ﻿using System;
 using DelegateExample;
 using FactoryPattern;
+using NetCore.PrototypePattern;
 using ObserverPattern;
 using ProxyPattern;
 using SingletonPattern;
@@ -22,6 +23,7 @@ namespace ConsoleApplication
             StrategyPattern(DayOfWeek.Sunday);
             StrategyPattern(DayOfWeek.Thursday);
             ObserverPattern();
+            PrototypePattern();
         }
         private static void ProxyExample()
         {
@@ -112,6 +114,32 @@ namespace ConsoleApplication
             component.Price=100;
             ramProduct.Price=25;
 
+        }
+
+        private static void PrototypePattern()
+        {
+            var computer = new Computer
+            {
+                AmountOfCores = 4,
+                AmountOfRam = 32,
+                CpuFrequency = 3.4m,
+                DriveType = "ssd",
+                Gpu = new GraphicsCard()
+                {
+                    AmountOfRam = 16,
+                    GpuFrequency = 1.4m
+                }
+            };
+
+            var computer2 = (Computer) computer.Clone();
+            WriteLine($"Are both computer the same reference? {ReferenceEquals(computer, computer2)}");
+            
+            WriteLine($"Computer 1 has {computer.AmountOfCores} cores and computer 2 has {computer2.AmountOfCores}");
+            WriteLine($"Computer 1 has {computer.AmountOfRam} GB of Ram and computer 2 has {computer2.AmountOfRam}");
+            WriteLine($"Computer 1 cores have {computer.CpuFrequency}  and computer 2 have {computer2.CpuFrequency}");
+            WriteLine($"Computer 1 drive is {computer.DriveType} and computer 2 has {computer2.DriveType}");
+            WriteLine($"Are both drives(string) pointing to the same reference? { ReferenceEquals(computer.DriveType,computer2.DriveType)}");
+            WriteLine($"Are both Gpu's(Class) pointing to the same reference? { ReferenceEquals(computer.Gpu, computer2.Gpu)}");
         }
     }
 }
