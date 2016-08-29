@@ -1,4 +1,4 @@
-namespace FactoryPattern
+namespace NetCore.FactoryPattern
 {
     public enum AnimalType
     {

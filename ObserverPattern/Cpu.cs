@@ -1,7 +1,6 @@
-using System;
 using System.Collections.Generic;
 
-namespace ObserverPattern
+namespace NetCore.ObserverPattern
 {
     public class Cpu : IProduct
     {

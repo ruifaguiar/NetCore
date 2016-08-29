@@ -1,4 +1,4 @@
-namespace DelegateExample
+namespace NetCore.DelegateExample
 {
     public class Calculator
     {

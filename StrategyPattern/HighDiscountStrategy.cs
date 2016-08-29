@@ -1,4 +1,4 @@
-namespace StrategyPattern
+namespace NetCore.StrategyPattern
 {
     public class HighDiscountStrategy : IDiscountStrategy
     {

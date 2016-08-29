@@ -1,6 +1,6 @@
 using System.IO;
 
-namespace ProxyPattern
+namespace NetCore.ProxyPattern
 {
     public class FileReader : IReader
     {

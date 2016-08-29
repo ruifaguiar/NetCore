@@ -1,6 +1,6 @@
 using System;
 
-namespace ProxyPattern
+namespace NetCore.ProxyPattern
 
 {
      public interface IReader : IDisposable

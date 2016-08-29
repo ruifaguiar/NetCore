@@ -1,12 +1,13 @@
-using static System.Console;
+using System;
 
-namespace ObserverPattern
+
+namespace NetCore.ObserverPattern
 {
     public class Customer : ICustomer
     {
         void ICustomer.Update(IProduct product)
         {
-            WriteLine($"{product.Name} is at {product.Price}$");
+            Console.WriteLine($"{product.Name} is at {product.Price}$");
         }
     }
 }

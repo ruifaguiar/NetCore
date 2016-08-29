@@ -1,4 +1,4 @@
-namespace FactoryPattern
+namespace NetCore.FactoryPattern
 {
      public interface IAnimalFactory
    {

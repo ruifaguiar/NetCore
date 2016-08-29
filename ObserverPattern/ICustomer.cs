@@ -1,4 +1,4 @@
-namespace ObserverPattern
+namespace NetCore.ObserverPattern
 {
     public interface ICustomer
     {

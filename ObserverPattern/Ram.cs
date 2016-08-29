@@ -1,6 +1,4 @@
-using System.Collections.Generic;
-
-namespace ObserverPattern
+namespace NetCore.ObserverPattern
 {
 
     public class Ram : IProduct

@@ -1,13 +1,13 @@
 ﻿using System;
-using DelegateExample;
-using FactoryPattern;
+using NetCore.DelegateExample;
+using NetCore.FactoryPattern;
+using NetCore.ObserverPattern;
 using NetCore.PrototypePattern;
-using ObserverPattern;
-using ProxyPattern;
-using SingletonPattern;
-using StrategyPattern;
-using static System.Console;
-namespace ConsoleApplication
+using NetCore.ProxyPattern;
+using NetCore.SingletonPattern;
+using NetCore.StrategyPattern;
+
+namespace NetCore
 {
     public class Program
     {
@@ -28,7 +28,7 @@ namespace ConsoleApplication
         private static void ProxyExample()
         {
             IReader reader = new FileReader();
-            WriteLine(reader.Read());
+            Console.WriteLine(reader.Read());
             reader.Dispose();
         }
 
@@ -38,8 +38,8 @@ namespace ConsoleApplication
             IAnimal carnivore = factory.CreateAnimal(AnimalType.Carnivore);
             IAnimal herbivore = factory.CreateAnimal(AnimalType.Herbivore);
 
-            WriteLine("I am a {0}, i sleep for {1} hours and like to eat {2}", carnivore.GetType().Name, carnivore.Sleep(), carnivore.Eat());
-            WriteLine("I am a {0}, i sleep for {1} hours and like to eat {2}", herbivore.GetType().Name, herbivore.Sleep(), herbivore.Eat());
+            Console.WriteLine("I am a {0}, i sleep for {1} hours and like to eat {2}", carnivore.GetType().Name, carnivore.Sleep(), carnivore.Eat());
+            Console.WriteLine("I am a {0}, i sleep for {1} hours and like to eat {2}", herbivore.GetType().Name, herbivore.Sleep(), herbivore.Eat());
         }
 
         private static void SingletonExample()
@@ -49,15 +49,15 @@ namespace ConsoleApplication
 
             var johnHash = john.GetHashCode();
             var rickHash = rick.GetHashCode();
-            WriteLine(johnHash + " is equal to " + rickHash);
-            WriteLine(john.Fight("John Snow"));
+            Console.WriteLine(johnHash + " is equal to " + rickHash);
+            Console.WriteLine(john.Fight("John Snow"));
         }
         private static void DelegateExample()
         {
             Calculator calc = new Calculator();
 
             AddFunction func = new AddFunction(calc.Add);
-            WriteLine(func.Invoke(1, 2));
+            Console.WriteLine(func.Invoke(1, 2));
         }
         private static void DelegateCallbackExample()
         {
@@ -67,7 +67,7 @@ namespace ConsoleApplication
 
         private static void DelegateCallbackPrint(int i)
         {
-            WriteLine(i);
+            Console.WriteLine(i);
         }
 
         private static void StrategyPattern(DayOfWeek dayOfWeek)
@@ -99,7 +99,7 @@ namespace ConsoleApplication
 
             var discount = (double)mall.GetFinalBill() / mall.BillAmount;
 
-            WriteLine($"The Customer {mall.CustomerName} is bought {mall.BillAmount}€ and got a discount of {100 - discount * 100}%");
+            Console.WriteLine($"The Customer {mall.CustomerName} is bought {mall.BillAmount}€ and got a discount of {100 - discount * 100}%");
         }
 
         private static void ObserverPattern()
@@ -132,14 +132,14 @@ namespace ConsoleApplication
             };
 
             var computer2 = (Computer) computer.Clone();
-            WriteLine($"Are both computer the same reference? {ReferenceEquals(computer, computer2)}");
+            Console.WriteLine($"Are both computer the same reference? {ReferenceEquals(computer, computer2)}");
             
-            WriteLine($"Computer 1 has {computer.AmountOfCores} cores and computer 2 has {computer2.AmountOfCores}");
-            WriteLine($"Computer 1 has {computer.AmountOfRam} GB of Ram and computer 2 has {computer2.AmountOfRam}");
-            WriteLine($"Computer 1 cores have {computer.CpuFrequency}  and computer 2 have {computer2.CpuFrequency}");
-            WriteLine($"Computer 1 drive is {computer.DriveType} and computer 2 has {computer2.DriveType}");
-            WriteLine($"Are both drives(string) pointing to the same reference? { ReferenceEquals(computer.DriveType,computer2.DriveType)}");
-            WriteLine($"Are both Gpu's(Class) pointing to the same reference? { ReferenceEquals(computer.Gpu, computer2.Gpu)}");
+            Console.WriteLine($"Computer 1 has {computer.AmountOfCores} cores and computer 2 has {computer2.AmountOfCores}");
+            Console.WriteLine($"Computer 1 has {computer.AmountOfRam} GB of Ram and computer 2 has {computer2.AmountOfRam}");
+            Console.WriteLine($"Computer 1 cores have {computer.CpuFrequency}  and computer 2 have {computer2.CpuFrequency}");
+            Console.WriteLine($"Computer 1 drive is {computer.DriveType} and computer 2 has {computer2.DriveType}");
+            Console.WriteLine($"Are both drives(string) pointing to the same reference? { ReferenceEquals(computer.DriveType,computer2.DriveType)}");
+            Console.WriteLine($"Are both Gpu's(Class) pointing to the same reference? { ReferenceEquals(computer.Gpu, computer2.Gpu)}");
         }
     }
 }

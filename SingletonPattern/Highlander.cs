@@ -1,4 +1,4 @@
-namespace SingletonPattern
+namespace NetCore.SingletonPattern
 {
     public sealed class Highlander
     {

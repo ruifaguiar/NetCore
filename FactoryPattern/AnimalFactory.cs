@@ -1,6 +1,6 @@
 using System;
 
-namespace FactoryPattern 
+namespace NetCore.FactoryPattern 
 {
 public class AnimalFactory : IAnimalFactory
     {
