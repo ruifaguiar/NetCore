@@ -2,6 +2,7 @@
 using NetCore.DelegateExample;
 using NetCore.FactoryPattern;
 using NetCore.MediatorPattern;
+using NetCore.MediatorPatternDelegate;
 using NetCore.ObserverPattern;
 using NetCore.PrototypePattern;
 using NetCore.ProxyPattern;
@@ -27,7 +28,8 @@ namespace NetCore
             StrategyPattern(DayOfWeek.Thursday);
             ObserverPattern();
             PrototypePattern();
-            DelegatePublishSubscribeExample();
+            MediatorPatternExample();
+            MediatorPatternDelegate();
 
             Console.ReadLine();
         }
@@ -146,7 +148,7 @@ namespace NetCore
             Console.WriteLine($"Are both Gpu's(Class) pointing to the same reference? { ReferenceEquals(computer.Gpu, computer2.Gpu)}");
         }
 
-        private static void DelegatePublishSubscribeExample()
+        private static void MediatorPatternExample()
         {
             IPart board = new Board
             {
@@ -161,7 +163,7 @@ namespace NetCore
             };
             Client client = new Client { NameOfClient = "Rui" };
             client.SubscribePart(board);
-            Client c2 = new Client {NameOfClient = "Sara"};
+            Client c2 = new Client { NameOfClient = "Sara" };
             client.SubscribePart(board);
             c2.SubscribePart(board);
             c2.SubscribePart(cpu);
@@ -169,6 +171,22 @@ namespace NetCore
             cpu.Price = 10m;
 
 
+
+        }
+
+        private static void MediatorPatternDelegate()
+        {
+            Job gardner = new Job
+            {
+                Title = "Gardner",
+                StartDate = DateTime.Now,
+                EndDate = DateTime.Now.AddMonths(1)
+            };
+            Employee john = new Employee { Name = "Peter" };
+            john.Subscribe();
+            Employee sara = new Employee { Name = "Raquel" };
+            sara.Subscribe();
+            gardner.Title = "Mr. Gardner";
 
         }
     }
