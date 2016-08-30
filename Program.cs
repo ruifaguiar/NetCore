@@ -1,5 +1,6 @@
 ﻿using System;
 using NetCore.DelegateExample;
+using NetCore.DelegatePublishSubscribe;
 using NetCore.FactoryPattern;
 using NetCore.ObserverPattern;
 using NetCore.PrototypePattern;
@@ -12,6 +13,8 @@ namespace NetCore
     public class Program
     {
         public delegate int AddFunction(int val1, int val2);
+
+        public delegate void PriceUpdateHandler(Product product);
         public static void Main(string[] args)
         {
             ProxyExample();
@@ -24,6 +27,7 @@ namespace NetCore
             StrategyPattern(DayOfWeek.Thursday);
             ObserverPattern();
             PrototypePattern();
+            DelegatePublishSubscribeExample();
         }
         private static void ProxyExample()
         {
@@ -111,8 +115,8 @@ namespace NetCore
             component.AddFollower(cust1);
             ramProduct.AddFollower(cust2);
 
-            component.Price=100;
-            ramProduct.Price=25;
+            component.Price = 100;
+            ramProduct.Price = 25;
 
         }
 
@@ -131,15 +135,39 @@ namespace NetCore
                 }
             };
 
-            var computer2 = (Computer) computer.Clone();
+            var computer2 = (Computer)computer.Clone();
             Console.WriteLine($"Are both computer the same reference? {ReferenceEquals(computer, computer2)}");
-            
+
             Console.WriteLine($"Computer 1 has {computer.AmountOfCores} cores and computer 2 has {computer2.AmountOfCores}");
             Console.WriteLine($"Computer 1 has {computer.AmountOfRam} GB of Ram and computer 2 has {computer2.AmountOfRam}");
             Console.WriteLine($"Computer 1 cores have {computer.CpuFrequency}  and computer 2 have {computer2.CpuFrequency}");
             Console.WriteLine($"Computer 1 drive is {computer.DriveType} and computer 2 has {computer2.DriveType}");
-            Console.WriteLine($"Are both drives(string) pointing to the same reference? { ReferenceEquals(computer.DriveType,computer2.DriveType)}");
+            Console.WriteLine($"Are both drives(string) pointing to the same reference? { ReferenceEquals(computer.DriveType, computer2.DriveType)}");
             Console.WriteLine($"Are both Gpu's(Class) pointing to the same reference? { ReferenceEquals(computer.Gpu, computer2.Gpu)}");
+        }
+
+        private static void DelegatePublishSubscribeExample()
+        {
+            Client client = new Client {NameOfClient = "Rui"};
+            Client c2 = new Client { NameOfClient = "Raquel" };
+
+            Product p1 = new Product
+            {
+                Price = 5,
+                ProductName = "kiwi",
+            };
+            p1.AddToList(client);
+            p1.AddToList(c2);
+            Product p2 = new Product
+            {
+                Price = 4,
+                ProductName = "Apple",
+            };
+            p2.AddToList(c2);
+
+            p1.Price = 6;
+            p2.Price = 3;
+
         }
     }
 }
