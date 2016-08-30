@@ -52,11 +52,9 @@ namespace NetCore
         {
             Highlander john = Highlander.GetInstance();
             Highlander rick = Highlander.GetInstance();
-
-            var johnHash = john.GetHashCode();
-            var rickHash = rick.GetHashCode();
-            Console.WriteLine(johnHash + " is equal to " + rickHash);
-            Console.WriteLine(john.Fight("John Snow"));
+            
+            Console.WriteLine($"john is equal to rick? {ReferenceEquals(john,rick)}");
+           
         }
         private static void DelegateExample()
         {

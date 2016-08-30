@@ -17,10 +17,6 @@ namespace NetCore.SingletonPattern
             return _highlander;
         }
 
-        public string Fight(string nameOfVictin)
-        {
-            return $"Connor McLoud won vs {nameOfVictin}";
-        }
-
+       
     }
 }
