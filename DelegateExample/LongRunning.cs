@@ -8,15 +8,11 @@ namespace NetCore.DelegateExample
 
         public void LongRunningMethod(Callback cal)
         {
-            Task.Run(() =>
+            for (int i = 0; i < 5; i++)
             {
-                for (int i = 0; i < 5; i++)
-                {
-                    Task.Delay(i * 1000);
-                    cal(i);
-                }
-            });
-
+                Task.Delay(i * 1000);
+                cal(i);
+            }
         }
 
     }

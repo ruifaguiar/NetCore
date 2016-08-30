@@ -28,6 +28,8 @@ namespace NetCore
             ObserverPattern();
             PrototypePattern();
             DelegatePublishSubscribeExample();
+
+            Console.ReadLine();
         }
         private static void ProxyExample()
         {
