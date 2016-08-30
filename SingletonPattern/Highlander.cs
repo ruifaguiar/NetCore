@@ -10,13 +10,7 @@ namespace NetCore.SingletonPattern
 
         public static Highlander GetInstance()
         {
-            if (_highlander == null)
-            {
-                _highlander = new Highlander();
-            }
-            return _highlander;
+            return _highlander ?? (_highlander = new Highlander());
         }
-
-       
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System;
 using NetCore.DelegateExample;
-using NetCore.DelegatePublishSubscribe;
 using NetCore.FactoryPattern;
+using NetCore.MediatorPattern;
 using NetCore.ObserverPattern;
 using NetCore.PrototypePattern;
 using NetCore.ProxyPattern;
@@ -14,7 +14,7 @@ namespace NetCore
     {
         public delegate int AddFunction(int val1, int val2);
 
-        public delegate void PriceUpdateHandler(Product product);
+        public delegate void PriceUpdateHandler(Board product);
         public static void Main(string[] args)
         {
             ProxyExample();
@@ -52,9 +52,9 @@ namespace NetCore
         {
             Highlander john = Highlander.GetInstance();
             Highlander rick = Highlander.GetInstance();
-            
-            Console.WriteLine($"john is equal to rick? {ReferenceEquals(john,rick)}");
-           
+
+            Console.WriteLine($"john is equal to rick? {ReferenceEquals(john, rick)}");
+
         }
         private static void DelegateExample()
         {
@@ -148,25 +148,27 @@ namespace NetCore
 
         private static void DelegatePublishSubscribeExample()
         {
-            Client client = new Client {NameOfClient = "Rui"};
-            Client c2 = new Client { NameOfClient = "Raquel" };
-
-            Product p1 = new Product
+            IPart board = new Board
             {
-                Price = 5,
-                ProductName = "kiwi",
+                Price = 4.5m,
+                Name = "Motherboard"
             };
-            p1.AddToList(client);
-            p1.AddToList(c2);
-            Product p2 = new Product
-            {
-                Price = 4,
-                ProductName = "Apple",
-            };
-            p2.AddToList(c2);
 
-            p1.Price = 6;
-            p2.Price = 3;
+            IPart cpu = new Transistor
+            {
+                Price = 50.1m,
+                Name = "Cpu"
+            };
+            Client client = new Client { NameOfClient = "Rui" };
+            client.SubscribePart(board);
+            Client c2 = new Client {NameOfClient = "Sara"};
+            client.SubscribePart(board);
+            c2.SubscribePart(board);
+            c2.SubscribePart(cpu);
+            board.Price = 5.5m;
+            cpu.Price = 10m;
+
+
 
         }
     }
