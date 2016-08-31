@@ -5,11 +5,6 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "NetCore", "NetCore.xproj", "{918352F8-25B1-42EF-AFEE-D975D0BA1B4A}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4035EBCC-2F0F-4A85-850F-7CBD39A82B3B}"
-	ProjectSection(SolutionItems) = preProject
-		..\global.json = ..\global.json
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
