@@ -8,7 +8,7 @@ namespace NetCore.MediatorPatternDelegate
 
         private void JobChangeEventHandler(JobChangedEventArgs e)
         {
-            Console.WriteLine($"I {Name} recieved an update for the Job {e.Job.Title}");
+            Console.WriteLine($"I {Name} received an update for the Job {e.Job.Title}");
         }
 
         public void Subscribe()
