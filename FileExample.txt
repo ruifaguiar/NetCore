@@ -1,1 +1,1 @@
-﻿isto é um teste para exprimentar o exemplo.
+﻿This is example file reading test for proxy pattern
