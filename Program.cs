@@ -76,7 +76,7 @@ namespace NetCore
             longr.LongRunningMethod(DelegateCallbackPrint);
         }
 
-        private static void DelegateCallbackPrint(int i)
+        private static void DelegateCallbackPrint(string i)
         {
             Console.WriteLine(i);
         }

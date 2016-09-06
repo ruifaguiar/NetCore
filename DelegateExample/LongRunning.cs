@@ -4,15 +4,19 @@ namespace NetCore.DelegateExample
 {
     public class LongRunning
     {
-        public delegate void Callback(int i);
+        public delegate void Callback(string i);
 
         public void LongRunningMethod(Callback cal)
         {
-            for (int i = 0; i < 5; i++)
+
+            Task.Run(async () =>
             {
-                Task.Delay(i * 1000);
-                cal(i);
-            }
+                await Task.Delay(5000);
+
+                cal("After 5000ms we get the callback");
+            });
+
+
         }
 
     }
