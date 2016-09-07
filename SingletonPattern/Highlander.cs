@@ -12,5 +12,10 @@ namespace NetCore.SingletonPattern
         {
             return _highlander ?? (_highlander = new Highlander());
         }
+
+        public static void DoSomething()
+        {
+            
+        }
     }
 }

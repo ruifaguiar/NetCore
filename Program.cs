@@ -24,6 +24,7 @@ namespace NetCore
             ProxyExample();
             FactoryExample();
             SingletonExample();
+            SingletonThreadSafeExample();
             DelegateExample();
             DelegateCallbackExample();
             StrategyPattern(DayOfWeek.Monday);
@@ -62,6 +63,19 @@ namespace NetCore
 
             Console.WriteLine($"john is equal to rick? {ReferenceEquals(john, rick)}");
 
+        }
+
+        private static void SingletonThreadSafeExample()
+        {
+            //here we should try and make two thread create an instance at the same time.
+            HighlanderThreadSafe john = HighlanderThreadSafe.GetInstance();
+            HighlanderThreadSafe rick = HighlanderThreadSafe.GetInstance();
+
+            Console.WriteLine($"john is equal to rick? {ReferenceEquals(john, rick)}");
+            HighlanderThreadSafeSimpler simpleJohn = HighlanderThreadSafeSimpler.Instance;
+            HighlanderThreadSafeSimpler simpleRick = HighlanderThreadSafeSimpler.Instance;
+            Console.WriteLine($"john is equal to rick? {ReferenceEquals(simpleJohn, simpleRick)}");
+            
         }
         private static void DelegateExample()
         {
