@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using NetCore.BuilderPattern;
+using static NetCore.BuilderPattern.CellPhone;
 using NetCore.DelegateExample;
 using NetCore.ExtensionsExample;
 using NetCore.FactoryPattern;
@@ -36,6 +38,7 @@ namespace NetCore
             MediatorPatternDelegate();
             InterfaceExtensions();
             EnumerableExtensionExample();
+            BuilderPatternExample();
 
             Console.ReadLine();
         }
@@ -75,7 +78,7 @@ namespace NetCore
             HighlanderThreadSafeSimpler simpleJohn = HighlanderThreadSafeSimpler.Instance;
             HighlanderThreadSafeSimpler simpleRick = HighlanderThreadSafeSimpler.Instance;
             Console.WriteLine($"john is equal to rick? {ReferenceEquals(simpleJohn, simpleRick)}");
-            
+
         }
         private static void DelegateExample()
         {
@@ -230,6 +233,21 @@ namespace NetCore
             };
             Console.WriteLine($"Found any name named Joao? {names.GetByPredicate(a => a.Contains("Joao"))?.Any()}");
             Console.WriteLine($"Found any name named Marta? {names.GetByPredicate(a => a.Contains("Marta"))?.Any()}");
+        }
+
+        private static void BuilderPatternExample()
+        {
+            CellPhoneBuilder builder = new CellPhoneBuilder
+            {
+                Cpu = "i7",
+                Memory = 16,
+                MemoryCapacity = 64,
+                MicroSdSlot = null,
+                ScreenType = "FHD"
+            };
+            CellPhone cellPhone = builder.Build();
+            Console.WriteLine(cellPhone);
+
         }
 
     }
