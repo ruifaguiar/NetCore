@@ -4,6 +4,7 @@ using System.Linq;
 using NetCore.BuilderPattern;
 using static NetCore.BuilderPattern.CellPhone;
 using NetCore.DelegateExample;
+using NetCore.DisposablePattern;
 using NetCore.ExtensionsExample;
 using NetCore.FactoryPattern;
 using NetCore.MediatorPattern;
@@ -39,6 +40,7 @@ namespace NetCore
             InterfaceExtensions();
             EnumerableExtensionExample();
             BuilderPatternExample();
+            DisposablePatternExample();
 
             Console.ReadLine();
         }
@@ -248,6 +250,12 @@ namespace NetCore
             CellPhone cellPhone = builder.Build();
             Console.WriteLine(cellPhone);
 
+        }
+
+        private static void DisposablePatternExample()
+        {
+            ClassThatNeedsDisposable yeh = new ClassThatNeedsDisposable();
+            yeh.Dispose();
         }
 
     }
