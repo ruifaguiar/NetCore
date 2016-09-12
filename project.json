@@ -5,6 +5,7 @@
     "emitEntryPoint": true
   },
   "dependencies": {
+    "System.Collections.Concurrent": "4.0.12"
   },
   "frameworks": {
     "netcoreapp1.0": {

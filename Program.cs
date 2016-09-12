@@ -14,6 +14,7 @@ using NetCore.PrototypePattern;
 using NetCore.ProxyPattern;
 using NetCore.SingletonPattern;
 using NetCore.StrategyPattern;
+using NetCore.ConcurrentCollections;
 
 namespace NetCore
 {
@@ -24,23 +25,24 @@ namespace NetCore
         public delegate void PriceUpdateHandler(Board product);
         public static void Main(string[] args)
         {
-            ProxyExample();
-            FactoryExample();
-            SingletonExample();
-            SingletonThreadSafeExample();
-            DelegateExample();
-            DelegateCallbackExample();
-            StrategyPattern(DayOfWeek.Monday);
-            StrategyPattern(DayOfWeek.Sunday);
-            StrategyPattern(DayOfWeek.Thursday);
-            ObserverPattern();
-            PrototypePattern();
-            MediatorPatternExample();
-            MediatorPatternDelegate();
-            InterfaceExtensions();
-            EnumerableExtensionExample();
-            BuilderPatternExample();
-            DisposablePatternExample();
+            //ProxyExample();
+            //FactoryExample();
+            //SingletonExample();
+            //SingletonThreadSafeExample();
+            //DelegateExample();
+            //DelegateCallbackExample();
+            //StrategyPattern(DayOfWeek.Monday);
+            //StrategyPattern(DayOfWeek.Sunday);
+            //StrategyPattern(DayOfWeek.Thursday);
+            //ObserverPattern();
+            //PrototypePattern();
+            //MediatorPatternExample();
+            //MediatorPatternDelegate();
+            //InterfaceExtensions();
+            //EnumerableExtensionExample();
+            //BuilderPatternExample();
+            //DisposablePatternExample();
+            ConcurrentCollectionsExample();
 
             Console.ReadLine();
         }
@@ -256,6 +258,130 @@ namespace NetCore
         {
             ClassThatNeedsDisposable yeh = new ClassThatNeedsDisposable();
             yeh.Dispose();
+        }
+
+        private static void ConcurrentCollectionsExample()
+        {
+            CDictionary stock = new CDictionary();
+            int stockValue;
+
+            //Try add
+            var result = stock.TryAdd("Simpsons", 5);
+            Console.WriteLine($"Tried to add 5 Simpsons tshirts with result:{result}");
+            Console.WriteLine($"Add the same tshirt again");
+            result = stock.TryAdd("Simpsons", 2);
+            Console.WriteLine($"Tried to add 2 Simpsons tshirts with result:{result}");
+
+            //Try Update
+            result = stock.TryUpdate("Simpsons", 5, 6);
+            Console.WriteLine($"Tried to update Simpsons tshirts (5 of stock), with a new value of 6 with result {result}");
+            result = stock.TryUpdate("Simpsons", 7, 6);
+            Console.WriteLine($"Tried to update Simpsons tshirts (5 of stock) sending 7 instead, with a new value of 6 with result {result}");
+
+            //TryGet
+
+            result = stock.TryGet("Simpsons", out stockValue);
+            Console.WriteLine($"Get value for simpsons occured with result {result} and the value is {stockValue}");
+
+            //Add or Update -> try to update the value, if key it's not present add it
+            var updatedStock = stock.AddOrUpdate("Simpsons", 3);
+            Console.WriteLine($"Tried to increment Simpsons tshirts (5 of stock) with a new value of {updatedStock}");
+            updatedStock = stock.AddOrUpdate("Family Guy", 10);
+            Console.WriteLine($"Tried to increment Simpsons tshirts (5 of stock) with a new value of {updatedStock}");
+
+            //Get or Add -> try and get the value. if key not present add it
+
+            stockValue = stock.GetOrAdd("Family Guy", 0);
+            Console.WriteLine($"Get the value of {stockValue} for tshirt Family Guy");
+            //Try Remove
+            result = stock.TryRemove("Simpsons", out stockValue);
+            Console.WriteLine($"Tried to remove remove Simpsons tshirts wich had {stockValue} of stock with result {result}");
+
+            result = stock.TryRemove("Simpsons", out stockValue);
+            Console.WriteLine($"Tried to remove remove Simpsons tshirts wich had {stockValue} of stock with result {result}");
+
+
+            //Concurrent Queue
+            CQueue queue = new CQueue();
+            queue.Enqueue("Simpsons");
+            queue.Enqueue("FamilyGuy");
+            queue.Enqueue("StarWars");
+
+            string shirt;
+            result = queue.TryPeek(out shirt);
+            if (result)
+                Console.WriteLine($"The item at the front of the queue is {shirt}");
+            else
+                Console.WriteLine($"Error peeking. Pervert?");
+
+            result = queue.TryDequeue(out shirt);
+
+            if (result)
+                Console.WriteLine($"The item dequeued is {shirt}");
+            else
+                Console.WriteLine($"Error peeking. Pervert?");
+
+            result = queue.TryPeek(out shirt);
+            if (result)
+                Console.WriteLine($"The item at the front of the queue (after dequeue) is {shirt}");
+            else
+                Console.WriteLine($"Error peeking. Pervert?");
+
+
+            //Concurrent Stack
+
+            CStack stack = new CStack();
+            stack.Push("Simpsons");
+            stack.Push("FamilyGuy");
+            stack.Push("StarWars");
+
+            
+            result = stack.TryPeek(out shirt);
+            if (result)
+                Console.WriteLine($"The item at the Top of the stack is {shirt}");
+            else
+                Console.WriteLine($"Error peeking. Pervert?");
+
+            result = stack.TryPop(out shirt);
+
+            if (result)
+                Console.WriteLine($"The item poped is {shirt}");
+            else
+                Console.WriteLine($"Error peeking. Pervert?");
+
+            result = stack.TryPeek(out shirt);
+            if (result)
+                Console.WriteLine($"The item at the Top of the stack (after Pop) is {shirt}");
+            else
+                Console.WriteLine($"Error peeking. Pervert?");
+
+
+            //ConcurrentBag No garanties for the order of put and take. In single thread it tends to have the same beahaviour of stack. It is
+            //used if the same thread does multiple add and remove. in that case it is more efficient.
+            CBag bag = new CBag();
+            bag.Push("Simpsons");
+            bag.Push("FamilyGuy");
+            bag.Push("StarWars");
+
+
+            result = bag.TryPeek(out shirt);
+            if (result)
+                Console.WriteLine($"The item peeked is {shirt}");
+            else
+                Console.WriteLine($"Error peeking. Pervert?");
+
+            result = bag.TryPop(out shirt);
+
+            if (result)
+                Console.WriteLine($"The item poped is {shirt}");
+            else
+                Console.WriteLine($"Error peeking. Pervert?");
+
+            result = bag.TryPeek(out shirt);
+            if (result)
+                Console.WriteLine($"The item at the Top of the stack (after Pop) is {shirt}");
+            else
+                Console.WriteLine($"Error peeking. Pervert?");
         }
 
     }
